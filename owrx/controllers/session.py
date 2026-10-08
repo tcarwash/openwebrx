@@ -66,6 +66,9 @@ class SessionController(WebpageController):
                     key = SessionStorage.getSharedInstance().startSession({"user": user.name})
                     cookie = SimpleCookie()
                     cookie["owrx-session"] = key
+                    cookie["owrx-session"]["httponly"] = True
+                    cookie["owrx-session"]["samesite"] = "Lax"
+                    cookie["owrx-session"]["path"] = "/"
                     target = self.request.query["ref"][0] if "ref" in self.request.query else "/settings"
                     if user.must_change_password:
                         target = "/pwchange?{0}".format(urlencode({"ref": target}))

@@ -45,6 +45,9 @@ class AuthorizationMixin(object):
             cookie = SimpleCookie()
             cookie["owrx-session"] = ""
             cookie["owrx-session"]["expires"] = "Thu, 01 Jan 1970 00:00:00 GMT"
+            cookie["owrx-session"]["httponly"] = True
+            cookie["owrx-session"]["samesite"] = "Lax"
+            cookie["owrx-session"]["path"] = "/"
             self.set_response_cookies(cookie)
             if (
                 "x-requested-with" in self.request.headers
